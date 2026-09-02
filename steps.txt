@@ -1,0 +1,53 @@
+1. create a red hat developer account.
+2. create a subscription.(do not use beta acess)
+3. then register with you account login and password.
+4. update mozilafirefox to the latest version.(sudo dnf update firefox)
+5. unable repositories for this os
+  -> sudo subscription-manager repos --enable=rhel-8-for-x86_64-baseos-rpms
+  -> sudo subscription-manager repos --enable=rhel-8-for-x86_64-baseos-rpms
+  -> sudo subscription-manager repos --enable=rhel-8-for-x86_64-appstream-rpms
+  -> sudo subscription-manager repos --enable "codeready-builder-for-rhel-8-$(uname -m)-rpms"
+6. -> sudo dnf install -y https://dl.fedoraproject.org/pub/epel/epel-release-latest-8.noarch.rpm
+   -> sudo dnf install epel-release
+7. sudo dnf install ntfs-3g
+8. copy the hostname.sh file in home directory
+9. open terminal in home directory and run
+  -> chmod +x hostname.sh
+  -> ./hostname.sh eic().ecb.ac.in
+10. to alter read and write properties of files and folders -> sudo chmod 777 .
+11. create a install folder and extract digital and analog packages into it
+  -> mkdir install /home/install
+  -> gtar -xvzf Digital_RHEL_8.tar.gz/Analog_RHEL_8.tar.gz -C /home/install
+12. edit the hosts file 
+   -> gedit /etc/hosts (put your system name at the end of first two lines)
+                       (in third line start with this address 14.139.1.126)
+13. in cshrc file for analog put the server ip address.
+14. copy a.repo file in the home directory and run the follwing commands
+    -> sudo dnf config-manager --add-repo a.repo
+    -> sudo yum install -y compat-db47
+15. sudo dnf install \
+    	redhat-lsb-core-4.0-7.el6.i686 \
+    	glibc \
+    	elfutils-libelf \
+    	ksh \
+    	mesa-libGL \
+    	mesa-libGLU \
+    	compat-readline43 \
+    	openmotif22 \
+   	libXp \
+    	gdbm \
+    	glibc-devel \
+    	redhat-lsb.i686 \
+    	'openssl' \
+    	'libX*' \
+    	'xor*' \
+    	'compa*' \
+    	'lib*' \
+    	--skip-broken
+install all these packages required for cadence softwares
+16. sudo dnf install redhat-lsb-core glibc elfutils-libelf ksh mesa-libGL mesa-libGLU compat-readline43 openmotif22 libXp gdbm glibc-devel redhat-lsb openssl libX* xor* ks* mesa* open* elf* liba*
+
+17. sudo dnf install redhat-lsb-core
+18. yum install -y libnsl
+19. dnf -y install libXScrnSaver
+
