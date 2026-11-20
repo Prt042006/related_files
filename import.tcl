@@ -15,6 +15,7 @@
 #################### import_design and floorplan ##############################################
 
 #### Import design stage 
+
 ## create a working lib
 create_lib ./outputs/work/macc.nlib
 save_lib
@@ -74,6 +75,7 @@ list_attributes -application -class net > ./outputs/net_attribute.rpt
 	## create core and die area
 		# through command line
 		 	initialize_floorplan -core_utilization 0.7 -core_offset 5 -flip_first_row true  -use_site_row -site_def unit
+		 	# decreacing this core utilisation value 0.7 to 0.6 will increase the core size 
 	  	# through gui
 	  		# task -> tak assistant -> floorplan prepration  
 	
@@ -95,12 +97,58 @@ list_attributes -application -class net > ./outputs/net_attribute.rpt
 	 		remove_individual_pin_constraints
 	 		remove_pin_guides
 	 		
-	 		set_block_pin_constraints -side 1 -allowed_layers {M3 M5} -corner_keepout_distance 20 -pin_spacing 5 -self
+	 		set_block_pin_constraints -side 1 -allowed_layers {M3 M5} -corner_keepout_num_tracks 5 -pin_spacing 5 -self
 	 		place_pins -ports $input_ports 
-	 			
 	 		
+	 		remove_block_pin_constraints
+	 		remove_individual_pin_constraints
+	 		remove_pin_guides
+	 			
+	 		set_block_pin_constraints -side 3 -allowed_layers {M3 M5} -corner_keepout_num_tracks 5 -pin_spacing 5 -self
+	 		place_pins -ports $output_ports 
+	 		
+	 		remove_block_pin_constraints
+	 		remove_individual_pin_constraints
+	 		remove_pin_guides
+	 		
+	 		set_block_pin_constraints -side 2 -allowed_layers {M6} -corner_keepout_num_tracks 5 -pin_spacing 5 -self
+	 		place_pins -ports $clock_ports 
+	 			
+	 			
 	## macro placement 
+		#grouping of same type macro
+			#though gui 
+			#-> view -> Hierarchy browser -> Right click in new window ->color by heiraechy -> initialize color by hierarchy
+			#-> view -> Name based Hierarchy browser
+			#-> view -> Flylines -> Net connection ->setting symbol ->auto apply
+			# click M to move the macro
+			# Align/Distribute tool (in left tool bar) used to alining macros
+				#Align -> spacing between core to macro
+				#Distribute -> spacing between macro to macro
+				
+			create_keepout_margin -outer {1 1 1 1} -type hard [get_flat_cells -filter "<macro_name>"] 
+			# in my design there is zero macro thus this cammand does'nt work, we can search and see this keepout margin but not in our case
+			# keepout margin of macro should end with line of site row 
+			
+
 	## physical only cells placemet
 	## power planing 
 	
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
